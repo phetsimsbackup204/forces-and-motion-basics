@@ -8,10 +8,10 @@ published version,
 
 ### Try it!
 
-<a href="hhttps://phet-forces-sim.vercel.app/" target="_blank">Click here to
+<a href="https://phet-forces-sim.vercel.app/" target="_blank">Click here to
 run "Forces and Motion: Basics".</a>
 
-<a href="hhttps://phet-forces-sim.vercel.app/" target="_blank">
+<a href="https://phet-forces-sim.vercel.app/" target="_blank">
 <img src="https://raw.githubusercontent.com/phetsimsbackup204/forces-and-motion-basics/main/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 </a>
 
