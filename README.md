@@ -12,12 +12,12 @@ published version,
 run "Forces and Motion: Basics".</a>
 
 <a href="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html" target="_blank">
-<img src="https://raw.githubusercontent.com/phetsims/forces-and-motion-basics/main/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
+<img src="https://raw.githubusercontent.com/phetsimsbackup204/forces-and-motion-basics/main/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 </a>
 
 ### Documentation
 
-The <a href="https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md" target="_blank">PhET
+The <a href="https://github.com/phetsimsbackup204/phet-info/blob/main/doc/phet-development-overview.md" target="_blank">PhET
 Development Overview</a> is the most complete guide to PhET Simulation Development. This guide includes how to obtain
 simulation code and its dependencies, notes about architecture & design, how to test and build the sims, as well as
 other important information.
@@ -27,28 +27,28 @@ other important information.
 (1) Clone the simulation and its dependencies:
 
 ```
-git clone https://github.com/phetsims/assert.git
-git clone https://github.com/phetsims/axon.git
-git clone https://github.com/phetsims/babel.git
-git clone https://github.com/phetsims/brand.git
-git clone https://github.com/phetsims/chipper.git
-git clone https://github.com/phetsims/dot.git
-git clone https://github.com/phetsims/forces-and-motion-basics.git
-git clone https://github.com/phetsims/joist.git
-git clone https://github.com/phetsims/kite.git
-git clone https://github.com/phetsims/perennial.git perennial-alias
-git clone https://github.com/phetsims/phet-core.git
-git clone https://github.com/phetsims/phetcommon.git
-git clone https://github.com/phetsims/phetmarks.git
-git clone https://github.com/phetsims/query-string-machine.git
-git clone https://github.com/phetsims/scenery.git
-git clone https://github.com/phetsims/scenery-phet.git
-git clone https://github.com/phetsims/sherpa.git
-git clone https://github.com/phetsims/sun.git
-git clone https://github.com/phetsims/tambo.git
-git clone https://github.com/phetsims/tandem.git
-git clone https://github.com/phetsims/twixt.git
-git clone https://github.com/phetsims/utterance-queue.git
+git clone https://github.com/phetsimsbackup204/assert.git
+git clone https://github.com/phetsimsbackup204/axon.git
+git clone https://github.com/phetsimsbackup204/babel.git
+git clone https://github.com/phetsimsbackup204/brand.git
+git clone https://github.com/phetsimsbackup204/chipper.git
+git clone https://github.com/phetsimsbackup204/dot.git
+git clone https://github.com/phetsimsbackup204/forces-and-motion-basics.git
+git clone https://github.com/phetsimsbackup204/joist.git
+git clone https://github.com/phetsimsbackup204/kite.git
+git clone https://github.com/phetsimsbackup204/perennial.git perennial-alias
+git clone https://github.com/phetsimsbackup204/phet-core.git
+git clone https://github.com/phetsimsbackup204/phetcommon.git
+git clone https://github.com/phetsimsbackup204/phetmarks.git
+git clone https://github.com/phetsimsbackup204/query-string-machine.git
+git clone https://github.com/phetsimsbackup204/scenery.git
+git clone https://github.com/phetsimsbackup204/scenery-phet.git
+git clone https://github.com/phetsimsbackup204/sherpa.git
+git clone https://github.com/phetsimsbackup204/sun.git
+git clone https://github.com/phetsimsbackup204/tambo.git
+git clone https://github.com/phetsimsbackup204/tandem.git
+git clone https://github.com/phetsimsbackup204/twixt.git
+git clone https://github.com/phetsimsbackup204/utterance-queue.git
 ```
 
 (2) Install dev dependencies:
@@ -81,8 +81,8 @@ browser: `http://localhost/forces-and-motion-basics/build/adapted-from-phet/forc
 
 Join us at the <a href="https://scenerystack.org/community/join/" target="_blank">SceneryStack Community</a>
 
-Help us improve, create a <a href="http://github.com/phetsims/forces-and-motion-basics/issues/new" target="_blank">New Issue</a>
+Help us improve, create a <a href="http://github.com/phetsimsbackup204/forces-and-motion-basics/issues/new" target="_blank">New Issue</a>
 
 ### License
 
-See the <a href="https://github.com/phetsims/forces-and-motion-basics/blob/main/LICENSE" target="_blank">LICENSE</a>
+See the <a href="https://github.com/phetsimsbackup204/forces-and-motion-basics/blob/main/LICENSE" target="_blank">LICENSE</a>
