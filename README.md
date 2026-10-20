@@ -4,14 +4,14 @@ Forces and Motion: Basics
 Interactive Simulations</a>
 at the University of Colorado Boulder. For a description of this simulation, associated resources, and a link to the
 published version,
-<a href="https://phet.colorado.edu/en/simulation/forces-and-motion-basics" target="_blank">visit the simulation's web page</a>.
+<a href="https://github.com/phetsimsbackup204/forces-and-motion-basics" target="_blank">visit the simulation's web page</a>.
 
 ### Try it!
 
-<a href="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html" target="_blank">Click here to
+<a href="hhttps://phet-forces-sim.vercel.app/" target="_blank">Click here to
 run "Forces and Motion: Basics".</a>
 
-<a href="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html" target="_blank">
+<a href="hhttps://phet-forces-sim.vercel.app/" target="_blank">
 <img src="https://raw.githubusercontent.com/phetsimsbackup204/forces-and-motion-basics/main/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 </a>
 
