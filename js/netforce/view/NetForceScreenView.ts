@@ -193,7 +193,7 @@ export default class NetForceScreenView extends ScreenView {
       fill: '#000000'
     } );
     massText.centerX = layoutCenterX;
-    massText.top = 380;
+    massText.top = 150;
     model.showValuesProperty.linkAttribute( massText, 'visible' );
     this.addChild( massText );
 
@@ -205,7 +205,7 @@ export default class NetForceScreenView extends ScreenView {
       fill: '#000000'
     } );
     accelerationText.centerX = layoutCenterX;
-    accelerationText.top = 190;
+    accelerationText.top = 130;
     model.showValuesProperty.linkAttribute( accelerationText, 'visible' );
     this.addChild( accelerationText );
 
@@ -217,7 +217,7 @@ export default class NetForceScreenView extends ScreenView {
       fill: '#000000'
     } );
     velocityText.centerX = layoutCenterX;
-    velocityText.top = 170;
+    velocityText.top = 110;
     model.showValuesProperty.linkAttribute( velocityText, 'visible' );
     this.addChild( velocityText );
 
