@@ -60,8 +60,13 @@ export default class ItemNodeDragListener extends SoundDragListener {
 
           if ( droppedOnStack ) {
 
-            // Place on stack and announce
-            const priorLength = itemNode.placeItemOnStack( false );
+            // Keep toolbox items available and place a new copy on the stack.
+            const priorLength = !itemNode.wasOriginallyOnStack ?
+                                 itemNode.motionView.createStackedItemCopy( itemNode ) :
+                                 itemNode.placeItemOnStack( false );
+            if ( !itemNode.wasOriginallyOnStack ) {
+              itemNode.returnItemToToolbox();
+            }
             itemNode.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( itemNode.model, priorLength ) );
           }
           else {

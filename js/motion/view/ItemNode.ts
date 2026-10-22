@@ -76,7 +76,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * @param tandem
    */
   public constructor( public readonly model: MotionModel,
-                      private readonly motionView: MotionScreenView,
+  public readonly motionView: MotionScreenView,
                       public readonly item: Item,
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,

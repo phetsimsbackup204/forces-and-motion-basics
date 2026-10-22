@@ -731,6 +731,24 @@ export default class MotionScreenView extends ScreenView {
     } );
   }
 
+  /** Keep the toolbox source and put a newly-created copy on the stack. */
+  public createStackedItemCopy( sourceNode: ItemNode ): number {
+    const source = sourceNode.item;
+    const copy = new Item( this.model, source.name, Tandem.OPT_OUT,
+      source.imageProperty.value, source.massProperty.value,
+      source.positionProperty.value.x, source.positionProperty.value.y, source.imageScale, source.isBucket,
+      1, 0, source.sittingImageProperty.value || source.imageProperty.value,
+      source.holdingImageProperty.value || source.imageProperty.value, source.mystery );
+    this.model.items.push( copy );
+    const copyNode = source.isBucket ?
+                     new WaterBucketNode( this.model, this, copy, copy.imageProperty, copy.sittingImageProperty, copy.holdingImageProperty, this.model.showMassesProperty, sourceNode.itemToolbox, Tandem.OPT_OUT ) :
+                     new ItemNode( this.model, this, copy, copy.imageProperty, copy.sittingImageProperty, copy.holdingImageProperty, this.model.showMassesProperty, sourceNode.itemToolbox, Tandem.OPT_OUT );
+    this.itemModelToNodeMap.set( copy, copyNode );
+    this.itemNodes.push( copyNode );
+    this.itemToolboxGroup.addItemNode( copyNode, false );
+    return copyNode.placeItemOnStack( false );
+  }
+
   // Get the height of the objects in the stack (doesn't include skateboard)
   private get stackHeight(): number {
     let sum = 0;
