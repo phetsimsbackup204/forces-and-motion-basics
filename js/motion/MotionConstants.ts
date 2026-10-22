@@ -16,7 +16,7 @@ const MotionConstants = {
   MAX_FRICTION: 0.5,
 
   // Maximum speed in meters/second before the pusher falls down
-  MAX_SPEED: 40
+  MAX_SPEED: Number.POSITIVE_INFINITY
 };
 
 export default MotionConstants;

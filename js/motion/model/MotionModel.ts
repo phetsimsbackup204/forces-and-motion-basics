@@ -535,17 +535,11 @@ export default class MotionModel {
       newVelocity = 0.0;
     }
 
-    // Cap at strobe speed.  This is necessary so that a reverse applied force will take effect immediately, without these lines of code the pusher will stutter.
-    if ( newVelocity > MotionConstants.MAX_SPEED ) { newVelocity = MotionConstants.MAX_SPEED; }
-    if ( newVelocity < -MotionConstants.MAX_SPEED ) { newVelocity = -MotionConstants.MAX_SPEED; }
-
     this.velocityProperty.value = newVelocity;
     this.positionProperty.value = this.positionProperty.value + this.velocityProperty.value * dt;
 
     this.speedProperty.value = Math.abs( this.velocityProperty.value );
-    this.speedClassificationProperty.value = this.velocityProperty.value >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
-                                             this.velocityProperty.value <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
-                                             'WITHIN_ALLOWED_RANGE';
+    this.speedClassificationProperty.value = 'WITHIN_ALLOWED_RANGE';
 
     if ( this.speedClassificationProperty.value !== 'WITHIN_ALLOWED_RANGE' ) {
       this.timeSinceFallenProperty.value = 0;
