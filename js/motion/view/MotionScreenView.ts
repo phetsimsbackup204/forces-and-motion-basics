@@ -180,6 +180,18 @@ export default class MotionScreenView extends ScreenView {
 
     this.addChild( appliedForcePlayAreaControlNode );
 
+    const accelerationText = new Text( new DerivedProperty(
+      [ model.accelerationProperty ],
+      acceleration => `Acceleration: ${StringUtils.toFixedLTR( acceleration, 2 )} m/s^2`
+    ), {
+      font: new PhetFont( { size: 16, weight: 'bold' } ),
+      fill: '#000000',
+      visibleProperty: model.showValuesProperty
+    } );
+    accelerationText.centerX = appliedForceControl.centerX;
+    accelerationText.top = appliedForceControl.bottom + 5;
+    appliedForcePlayAreaControlNode.addChild( accelerationText );
+
     // Accessible forces list description for Motion screens
     const forcesDescriptionNode = new MotionForcesDescriptionNode( model );
     this.addChild( forcesDescriptionNode );
