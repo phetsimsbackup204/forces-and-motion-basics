@@ -209,6 +209,18 @@ export default class NetForceScreenView extends ScreenView {
     model.showValuesProperty.linkAttribute( accelerationText, 'visible' );
     this.addChild( accelerationText );
 
+    const velocityText = new Text( new DerivedProperty(
+      [ model.speedProperty ],
+      speed => `Velocity: ${toFixed( speed, 2 )} m/s`
+    ), {
+      font: new PhetFont( { size: 16, weight: 'bold' } ),
+      fill: '#000000'
+    } );
+    velocityText.centerX = layoutCenterX;
+    velocityText.top = 170;
+    model.showValuesProperty.linkAttribute( velocityText, 'visible' );
+    this.addChild( velocityText );
+
     // Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.isRunningProperty.link( running => {
       [ this.sumArrow, this.leftArrow, this.rightArrow ].forEach( arrow => {
