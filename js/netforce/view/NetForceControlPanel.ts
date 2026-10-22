@@ -104,7 +104,8 @@ export default class NetForceControlPanel extends Node {
     const massControl = new NumberControl( 'Mass (kg)', model.cart.massProperty, new Range( 0.1, 10 ), {
       delta: 0.1,
       tandem: providedOptions.tandem.createTandem( 'massControl' ),
-      titleNodeOptions: { font: new PhetFont( 16 ) }
+      titleNodeOptions: { font: new PhetFont( 16 ) },
+      numberDisplayOptions: { decimalPlaces: 1 }
     } );
     this.massControlPanel = new Panel( massControl, { xMargin: 10, yMargin: 10, fill: '#e3e980' } );
     this.addChild( this.massControlPanel );
