@@ -53,8 +53,13 @@ export default class Cart {
    * Reset the Properties associated with this model.
    */
   public reset(): void {
+    this.resetMotion();
+    this.massProperty.reset();
+  }
+
+  /** Reset the cart's position and velocity without changing its mass. */
+  public resetMotion(): void {
     this.positionProperty.reset();
     this.velocityProperty.reset();
-    this.massProperty.reset();
   }
 }

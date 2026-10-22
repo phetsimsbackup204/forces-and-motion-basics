@@ -390,7 +390,7 @@ export default class NetForceModel extends PhetioObject {
 
   // Return the cart and prepare the model for another "go" run
   public returnCart(): void {
-    this.cart.reset();
+    this.cart.resetMotion();
     this.knots.forEach( knot => knot.reset() );
     this.isRunningProperty.value = false;
     this.stateProperty.value = 'experimenting';
