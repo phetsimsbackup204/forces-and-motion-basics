@@ -34,7 +34,9 @@ export default class PullerNodeDragListener extends SoundDragListener {
         const dropKnot = model.getTargetKnot( puller );
 
         if ( dropKnot ) {
-          puller.dropAtKnot( dropKnot );
+          // Keep the toolbox puller available and attach a new copy to the knot.
+          pullerNode.view.createAttachedPullerCopy( pullerNode, dropKnot );
+          puller.dropAtHome();
         }
         else {
           puller.dropAtHome();

@@ -31,6 +31,8 @@ import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
+import Knot from '../model/Knot.js';
+import Puller from '../model/Puller.js';
 import CartNode from './CartNode.js';
 import CartStopperNode from './CartStopperNode.js';
 import FlagNode from './FlagNode.js';
@@ -440,6 +442,24 @@ export default class NetForceScreenView extends ScreenView {
 
     // Set initial PDOM order
     this.updatePullerPDOMOrder();
+  }
+
+  /** Create an attached copy while leaving the source puller in its toolbox. */
+  public createAttachedPullerCopy( sourceNode: PullerNode, knot: Knot ): void {
+    const source = sourceNode.puller;
+    const copy = new Puller( this.model, source.positionProperty.value.x, source.positionProperty.value.y, source.type, source.size, source.dragOffsetX, {
+      tandem: Tandem.OPT_OUT,
+      standOffsetX: source.standOffsetX
+    } );
+    this.model.pullers.push( copy );
+    const copyNode = new PullerNode( copy, this, Tandem.OPT_OUT, ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleName.createProperty( {
+      size: copy.size,
+      color: copy.colorProperty,
+      index: copy.descriptionIndex
+    } ) );
+    ( copy.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup ).addChild( copyNode );
+    this.pullerNodes.push( copyNode );
+    copy.dropAtKnot( knot );
   }
 
   /**
