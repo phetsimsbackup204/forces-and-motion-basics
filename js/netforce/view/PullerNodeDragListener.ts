@@ -31,6 +31,11 @@ export default class PullerNodeDragListener extends SoundDragListener {
       end: () => {
 
           // Determine drop location using the model's existing getTargetKnot method
+        if ( pullerNode.view.isPullerInToolbox( pullerNode ) ) {
+          pullerNode.visible = false;
+          return;
+        }
+
         const dropKnot = model.getTargetKnot( puller );
 
         if ( dropKnot ) {

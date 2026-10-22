@@ -75,6 +75,7 @@ export default class NetForceScreenView extends ScreenView {
   private readonly rightPullerGroup: PullerGroupNode;
   private readonly returnButton: ReturnButton;
   private readonly grabReleaseCueNode: NetForceGrabReleaseCueNode;
+  private readonly initialPullerCount: number;
 
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
@@ -256,6 +257,7 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( rightToolbox );
 
     const pullersTandem = tandem.createTandem( 'pullers' );
+    this.initialPullerCount = this.model.pullers.length;
 
     this.leftPullerGroup = new PullerGroupNode( leftToolbox.bounds );
     this.rightPullerGroup = new PullerGroupNode( rightToolbox.bounds );
@@ -323,8 +325,11 @@ export default class NetForceScreenView extends ScreenView {
       listener: () => {
         model.reset();
 
-        // Reset all puller nodes
-        this.pullerNodes.forEach( pullerNode => pullerNode.reset() );
+        // Restore the original toolbox robots and remove dynamically created robots.
+        this.pullerNodes.forEach( ( pullerNode, index ) => {
+          pullerNode.visible = index < this.initialPullerCount;
+          pullerNode.reset();
+        } );
 
         // Reset the grab release cue node
         this.grabReleaseCueNode.reset();
@@ -472,6 +477,15 @@ export default class NetForceScreenView extends ScreenView {
     ( copy.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup ).addChild( copyNode );
     this.pullerNodes.push( copyNode );
     copy.dropAtKnot( knot );
+  }
+
+  /** Whether the puller has been dropped in its team's toolbox. */
+  public isPullerInToolbox( pullerNode: PullerNode ): boolean {
+    const toolboxX = pullerNode.puller.type === 'blue' ? 25 : 630;
+    const toolboxY = this.layoutBounds.height - 216 - 4;
+    const position = pullerNode.puller.positionProperty.value;
+    return position.x >= toolboxX && position.x <= toolboxX + 324 &&
+           position.y >= toolboxY && position.y <= toolboxY + 216;
   }
 
   /**
