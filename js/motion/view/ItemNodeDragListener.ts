@@ -71,8 +71,14 @@ export default class ItemNodeDragListener extends SoundDragListener {
           }
           else {
 
-            // send the item home and make sure that the label is centered
-            itemNode.returnItemToToolbox();
+            if ( itemNode.wasOriginallyOnStack ) {
+              // A placed copy dragged back to a toolbox is discarded.
+              itemNode.motionView.removeStackedItemCopy( itemNode );
+            }
+            else {
+              // Keep the original toolbox source available.
+              itemNode.returnItemToToolbox();
+            }
 
             // Announce return to toolbox
             itemNode.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty );

@@ -40,7 +40,7 @@ export default class SpeedometerNode extends Node {
     super();
 
     const gaugeRadius = options.radius;
-    const gaugeNode = new ValueGaugeNode( speedProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ), {
+    const gaugeNode = new ValueGaugeNode( speedProperty, speedStringProperty, new Range( 0, 100 ), {
       radius: gaugeRadius,
       numberDisplayOptions: {
         valuePattern: pattern0Name1ValueUnitsVelocityStringProperty,

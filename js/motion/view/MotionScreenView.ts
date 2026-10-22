@@ -82,6 +82,7 @@ export default class MotionScreenView extends ScreenView {
   private readonly itemModelToNodeMap = new Map<Item, ItemNode>();
   private readonly toolboxContainer: Node;
   private readonly grabReleaseCueNode: MotionGrabReleaseCueNode;
+  private readonly initialItems = new Set<Item>();
 
   // Keyboard navigation groups
   public readonly itemToolboxGroup: ItemToolboxGroupNode;
@@ -261,6 +262,8 @@ export default class MotionScreenView extends ScreenView {
       rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ),
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
+    this.resetAllButton.top = controlPanel.bottom + 10;
+    this.resetAllButton.right = controlPanel.right;
 
     // i18n - if the play control buttons are too close to reset all, they should be separated
     if ( timeControlNode.right > this.resetAllButton.left - PLAY_PAUSE_BUFFER ) {
@@ -269,6 +272,18 @@ export default class MotionScreenView extends ScreenView {
 
     this.addChild( timeControlNode );
     this.addChild( this.resetAllButton );
+
+    if ( model.skateboard ) {
+      const totalMassText = new Text( new DerivedProperty( [ model.stackedItems.lengthProperty, model.showMassesProperty ], () => {
+        return `Total mass: ${model.getStackMass()} kg`;
+      } ), {
+        font: new PhetFont( { size: 16, weight: 'bold' } ),
+        visibleProperty: model.showMassesProperty,
+        centerX: width / 2,
+        top: 372
+      } );
+      this.addChild( totalMassText );
+    }
 
     // Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
@@ -361,11 +376,19 @@ export default class MotionScreenView extends ScreenView {
                        new ItemNode( model, this, item, item.imageProperty, sittingImageProperty, holdingImageProperty, model.showMassesProperty, itemLayer, itemsTandem.createTandem( item.name + 'Node' ) );
 
       this.itemNodes.push( itemNode );
+      this.initialItems.add( item );
 
       // Provide a reference from the item model to its view so that view dimensions can be looked up easily
       this.itemModelToNodeMap.set( item, itemNode );
       // Don't add to itemLayer yet - will be added to groups
     }
+
+    model.resetAllEmitter.addListener( () => {
+      this.model.items.slice().filter( item => !this.initialItems.has( item ) ).forEach( item => {
+        const itemNode = this.itemModelToNodeMap.get( item );
+        itemNode && this.removeStackedItemCopy( itemNode );
+      } );
+    } );
 
     // Create keyboard navigation groups AFTER items are created
     this.itemToolboxGroup = new ItemToolboxGroupNode( leftItemToolboxNode.bounds, rightItemToolboxNode.bounds );
@@ -747,6 +770,27 @@ export default class MotionScreenView extends ScreenView {
     this.itemNodes.push( copyNode );
     this.itemToolboxGroup.addItemNode( copyNode, false );
     return copyNode.placeItemOnStack( false );
+  }
+
+  /** Remove an active object when it is dragged back to a toolbox. */
+  public removeStackedItemCopy( itemNode: ItemNode ): void {
+    const index = this.model.stackedItems.indexOf( itemNode.item );
+    if ( index >= 0 ) {
+      this.model.stackedItems.remove( itemNode.item );
+    }
+    if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
+      this.itemStackGroup.removeItemNode( itemNode );
+    }
+    if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
+      this.itemToolboxGroup.removeItemNode( itemNode );
+    }
+    this.itemModelToNodeMap.delete( itemNode.item );
+    this.model.items.splice( this.model.items.indexOf( itemNode.item ), 1 );
+    const itemNodeIndex = this.itemNodes.indexOf( itemNode );
+    if ( itemNodeIndex >= 0 ) {
+      this.itemNodes.splice( itemNodeIndex, 1 );
+    }
+    itemNode.dispose();
   }
 
   // Get the height of the objects in the stack (doesn't include skateboard)

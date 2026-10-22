@@ -16,6 +16,7 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -102,6 +103,7 @@ export default class MotionControlPanel extends Node {
       minContentWidth: MIN_MOTION_AND_FRICTION_CONTROLS_CONTENT_WIDTH
     } );
     containerNode.addChild( checkboxGroup );
+    containerNode.addChild( this.createSpeedControl() );
 
     this.layoutCheckboxes(
       [ forceStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, stopwatchStringProperty ],
@@ -124,6 +126,7 @@ export default class MotionControlPanel extends Node {
       minContentWidth: MIN_MOTION_AND_FRICTION_CONTROLS_CONTENT_WIDTH
     } );
     containerNode.addChild( checkboxGroup );
+    containerNode.addChild( this.createSpeedControl() );
 
     this.layoutCheckboxes(
       [ forcesStringProperty, sumOfForcesStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, stopwatchStringProperty ],
@@ -150,6 +153,7 @@ export default class MotionControlPanel extends Node {
       minContentWidth: MIN_MOTION_AND_FRICTION_CONTROLS_CONTENT_WIDTH + 10 // empirically determined as the 'acceleration' screen controls have longer strings
     } );
     containerNode.addChild( checkboxGroup );
+    containerNode.addChild( this.createSpeedControl() );
 
     this.layoutCheckboxes(
       [ forcesStringProperty, sumOfForcesStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, accelerationStringProperty ],
@@ -259,6 +263,16 @@ export default class MotionControlPanel extends Node {
     return items;
   }
 
+  private createSpeedControl(): NumberControl {
+    const speedControl = new NumberControl( speedStringProperty, this.model.speedProperty, new Range( 0, 100 ), {
+      delta: 0.1,
+      tandem: this.tandem.createTandem( 'speedControl' ),
+      visibleProperty: this.model.showSpeedProperty,
+      numberDisplayOptions: { decimalPlaces: 1 }
+    } );
+    return speedControl;
+  }
+
   private createFrictionControl(): Node {
     return new FrictionControl( this.model, FONT_SIZE, MAX_TEXT_WIDTH, this.tandem.createTandem( 'frictionSlider' ) );
   }
@@ -306,7 +320,7 @@ export default class MotionControlPanel extends Node {
 
   private createSpeedometerIcon(): Node {
     const speedometerIconValueProperty = new Property( 0 );
-    return new GaugeNode( speedometerIconValueProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ), {
+    return new GaugeNode( speedometerIconValueProperty, speedStringProperty, new Range( 0, 100 ), {
       radius: 67,
       scale: 0.2
     } );
