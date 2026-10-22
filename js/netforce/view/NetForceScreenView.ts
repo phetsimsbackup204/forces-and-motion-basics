@@ -8,6 +8,8 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Shape from '../../../../kite/js/Shape.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -182,6 +184,15 @@ export default class NetForceScreenView extends ScreenView {
         lineDash: [ 10, 5 ]
       }
     } );
+
+    const massText = new Text( new DerivedProperty( [ model.cart.massProperty ], mass => `Mass: ${toFixed( mass, 1 )} kg` ), {
+      font: new PhetFont( { size: 16, weight: 'bold' } ),
+      fill: '#000000'
+    } );
+    massText.centerX = layoutCenterX;
+    massText.top = 235;
+    model.showValuesProperty.linkAttribute( massText, 'visible' );
+    this.addChild( massText );
 
     // Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.isRunningProperty.link( running => {

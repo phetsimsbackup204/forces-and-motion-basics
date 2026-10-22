@@ -59,6 +59,7 @@ export default class NetForceModel extends PhetioObject {
   public readonly showSumOfForcesProperty: BooleanProperty;
   public readonly showValuesProperty: BooleanProperty;
   public readonly showSpeedProperty: BooleanProperty;
+  public readonly showMassProperty: BooleanProperty;
   private readonly cartReturnedEmitter: Emitter;
   public readonly resetAllEmitter: Emitter;
   public readonly cart: Cart;
@@ -178,6 +179,10 @@ export default class NetForceModel extends PhetioObject {
     } );
     this.showSpeedProperty = new BooleanProperty( false, {
       tandem: visiblePropertyTandem.createTandem( 'showSpeedProperty' ),
+      phetioFeatured: true
+    } );
+    this.showMassProperty = new BooleanProperty( false, {
+      tandem: visiblePropertyTandem.createTandem( 'showMassProperty' ),
       phetioFeatured: true
     } );
     this.cartReturnedEmitter = new Emitter();
@@ -417,6 +422,7 @@ export default class NetForceModel extends PhetioObject {
     this.showSumOfForcesProperty.reset();
     this.showValuesProperty.reset();
     this.showSpeedProperty.reset();
+    this.showMassProperty.reset();
 
     this.cart.reset();
     this.pullers.forEach( puller => {
@@ -446,7 +452,7 @@ export default class NetForceModel extends PhetioObject {
       this.durationProperty.value = this.durationProperty.value + dt;
 
       // Make the simulation run about as fast as the Java version
-      const newV = this.cart.velocityProperty.value + this.getNetForce() * dt * 0.003;
+      const newV = this.cart.velocityProperty.value + this.getNetForce() / this.cart.massProperty.value * dt * 0.003;
       this.speedProperty.value = Math.abs( newV );
 
       // calculate new position from velocity

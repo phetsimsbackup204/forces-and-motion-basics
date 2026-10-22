@@ -10,6 +10,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import { metersPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondUnit.js';
 import { metersUnit } from '../../../../scenery-phet/js/units/metersUnit.js';
+import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class Cart {
@@ -19,6 +20,7 @@ export default class Cart {
 
   // 1-D velocity in MKS
   public readonly velocityProperty: NumberProperty;
+  public readonly massProperty: NumberProperty;
 
   // width from the center of the cart to the wheels, used to determine when a wheel touches a game stopper in meters
   public readonly widthToWheel = 55;
@@ -39,6 +41,12 @@ export default class Cart {
       units: metersPerSecondUnit,
       range: new Range( -6, 6 )
     } );
+    this.massProperty = new NumberProperty( 1, {
+      tandem: tandem.createTandem( 'massProperty' ),
+      phetioFeatured: true,
+      units: kilogramsUnit,
+      range: new Range( 0.1, 10 )
+    } );
   }
 
   /**
@@ -47,5 +55,6 @@ export default class Cart {
   public reset(): void {
     this.positionProperty.reset();
     this.velocityProperty.reset();
+    this.massProperty.reset();
   }
 }

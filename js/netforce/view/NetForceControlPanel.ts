@@ -10,6 +10,8 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
+import Range from '../../../../dot/js/Range.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -24,12 +26,14 @@ import NetForceModel from '../model/NetForceModel.js';
 const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 const valuesStringProperty = ForcesAndMotionBasicsFluent.valuesStringProperty;
+const massesStringProperty = ForcesAndMotionBasicsFluent.massesStringProperty;
 
 type NetForceControlPanelOptions = WithRequired<NodeOptions, 'tandem'>;
 
 export default class NetForceControlPanel extends Node {
   private readonly checkboxGroup: VerticalCheckboxGroup;
   private readonly verticalCheckboxGroupPanel: Panel;
+  private readonly massControlPanel: Panel;
 
   public constructor(
     model: NetForceModel,
@@ -81,6 +85,10 @@ export default class NetForceControlPanel extends Node {
         accessibleContextResponseChecked: speedDescriptionProperty,
         accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.speedCheckbox.accessibleContextResponseUncheckedStringProperty
       }
+    }, {
+      createNode: () => new Text( massesStringProperty, fontOptions ),
+      property: model.showMassProperty,
+      tandemName: 'massCheckbox'
     } ], {
       tandem: providedOptions.tandem.createTandem( 'checkboxGroup' ),
       minContentWidth: 100,
@@ -93,9 +101,20 @@ export default class NetForceControlPanel extends Node {
     } );
     this.addChild( this.verticalCheckboxGroupPanel );
 
+    const massControl = new NumberControl( 'Mass (kg)', model.cart.massProperty, new Range( 0.1, 10 ), {
+      delta: 0.1,
+      tandem: providedOptions.tandem.createTandem( 'massControl' ),
+      titleNodeOptions: { font: new PhetFont( 16 ) }
+    } );
+    this.massControlPanel = new Panel( massControl, { xMargin: 10, yMargin: 10, fill: '#e3e980' } );
+    this.addChild( this.massControlPanel );
+    model.showMassProperty.link( show => { this.massControlPanel.visible = show; } );
+
     // Update the layout to support dynamic locale
     Multilink.multilink( [ sumOfForcesStringProperty, valuesStringProperty, speedStringProperty ], () => {
       this.verticalCheckboxGroupPanel.right = ForcesAndMotionBasicsLayoutBounds.width - 5;
+      this.massControlPanel.right = this.verticalCheckboxGroupPanel.right;
+      this.massControlPanel.top = this.verticalCheckboxGroupPanel.bottom + 5;
     } );
   }
 }
