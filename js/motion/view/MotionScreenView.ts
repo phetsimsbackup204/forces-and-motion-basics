@@ -273,6 +273,16 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( timeControlNode );
     this.addChild( this.resetAllButton );
 
+    const updateControlButtonLayout = (): void => {
+      timeControlNode.leftCenter = controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset );
+      this.resetAllButton.top = controlPanel.bottom + 10;
+      this.resetAllButton.right = controlPanel.right;
+      if ( timeControlNode.right > this.resetAllButton.left - PLAY_PAUSE_BUFFER ) {
+        timeControlNode.leftCenter = controlPanel.leftBottom.plusXY( -2 * PLAY_PAUSE_BUFFER, playPauseVerticalOffset );
+      }
+    };
+    model.showSpeedProperty.link( updateControlButtonLayout );
+
     if ( model.skateboard ) {
       const totalMassText = new Text( new DerivedProperty( [ model.stackedItems.lengthProperty, model.showMassesProperty ], () => {
         return `Total mass: ${model.getStackMass()} kg`;

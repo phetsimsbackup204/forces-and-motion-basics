@@ -270,6 +270,13 @@ export default class MotionControlPanel extends Node {
       visibleProperty: this.model.showSpeedProperty,
       numberDisplayOptions: { decimalPlaces: 1 }
     } );
+    this.model.speedProperty.lazyLink( speed => {
+      const direction = this.model.velocityProperty.value < 0 ? -1 : 1;
+      const velocity = direction * speed;
+      if ( velocity !== this.model.velocityProperty.value ) {
+        this.model.velocityProperty.value = velocity;
+      }
+    } );
     return speedControl;
   }
 
