@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -75,7 +76,11 @@ export default class FrictionControl extends VBox {
     frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( ForcesAndMotionBasicsFluent.lotsStringProperty, sliderTickOptions ) );
 
     // Keep label in sync with slider position
-    const frictionText = new Text( ForcesAndMotionBasicsFluent.frictionStringProperty, {
+    const frictionTitleStringProperty = new DerivedStringProperty( [
+      ForcesAndMotionBasicsFluent.frictionStringProperty,
+      model.frictionCoefficientProperty
+    ], ( frictionString, frictionCoefficient ) => `${frictionString}: ${toFixed( -9.8 * frictionCoefficient, 2 )} m/s²` );
+    const frictionText = new Text( frictionTitleStringProperty, {
       font: new PhetFont( { size: fontSize, weight: 'bold' } ),
       maxWidth: maxTextWidth,
       visibleProperty: frictionSlider.visibleProperty
